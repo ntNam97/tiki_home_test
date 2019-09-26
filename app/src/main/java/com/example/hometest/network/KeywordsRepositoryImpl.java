@@ -12,26 +12,27 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class KeywordsRepository {
+public class KeywordsRepositoryImpl implements KeywordsRepository {
 
-    private static volatile KeywordsRepository keywordsRepository;
+    private static volatile KeywordsRepositoryImpl keywordsRepositoryImpl;
     private APIService apiService;
 
-    public static KeywordsRepository getInstance() {
-        if (keywordsRepository == null) {
-            synchronized (KeywordsRepository.class) {
-                if (keywordsRepository == null) {
-                    keywordsRepository = new KeywordsRepository();
+    public static KeywordsRepositoryImpl getInstance() {
+        if (keywordsRepositoryImpl == null) {
+            synchronized (KeywordsRepositoryImpl.class) {
+                if (keywordsRepositoryImpl == null) {
+                    keywordsRepositoryImpl = new KeywordsRepositoryImpl();
                 }
             }
         }
-        return keywordsRepository;
+        return keywordsRepositoryImpl;
     }
 
-    private KeywordsRepository() {
+    private KeywordsRepositoryImpl() {
         apiService = RetrofitService.createService(APIService.class);
     }
 
+    @Override
     public void getKeywords(final KeywordCallback callback) {
         final List<Keyword> keywords = new ArrayList<>();
         apiService.getKeywords().enqueue(new Callback<JsonArray>() {

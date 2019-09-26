@@ -1,4 +1,8 @@
 package com.example.hometest.network;
 
-public class KeywordsRepository {
+import com.example.hometest.callback.KeywordCallback;
+
+public interface KeywordsRepository {
+
+    void getKeywords(KeywordCallback callback);
 }
